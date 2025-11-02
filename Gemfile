@@ -64,3 +64,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+#ffaker gem
+group :development, :test do
+  gem 'ffaker'
+end

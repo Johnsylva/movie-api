@@ -7,3 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'ffaker'
+
+i = 1
+10.times do
+  Actor.create(
+    first_name: FFaker::Name.first_name,
+    last_name: FFaker::Name.last_name,
+    known_for: FFaker::Movie.title
+  )
+  i += 1
+end
