@@ -10,12 +10,17 @@ class ActorsController < ApplicationController
   end
 
   def create
-    @actor = Actor.create(
+    @actor = Actor.new(
       first_name: params[:first_name],
       last_name: params[:last_name],
       known_for: params[:known_for]
     )
-    render template: "actors/show"
+
+    if @actor.save
+      render :show, status: :created
+    else
+      render json: { errors: @actor.errors }, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -27,7 +32,12 @@ class ActorsController < ApplicationController
       known_for: params[:known_for] || @actor.known_for
 
     )
-    render template: "actors/show"
+
+    if @actor.valid?
+      render :show
+    else
+      render json: { errors: @actor.errors }, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -35,7 +45,8 @@ class ActorsController < ApplicationController
 
     @actor.destroy
 
-    render json: {message: "Actor deleted ..."}
+    render json: {message: "Actor deleted ...,
+    "}
   end
 
 
