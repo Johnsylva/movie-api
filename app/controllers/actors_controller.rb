@@ -1,6 +1,6 @@
 class ActorsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
-  before_action :authenticate_admin, except: [:index, :show, :create]
+  before_action :authorize_movie_owner, only: [:update, :destroy]
 
   def index
     @actors = Actor.all

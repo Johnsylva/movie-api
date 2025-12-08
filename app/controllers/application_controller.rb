@@ -23,4 +23,11 @@ class ApplicationController < ActionController::Base
       render json: { message: "You must be an admin to do that."}, status: :unauthorized
     end
   end
+
+  def authorize_movie_owner
+    actor = Actor.find(params[:id])
+    unless current_user.admin || actor.user_id == current_user.id
+      render json: { message: "You don't have permission to modify this movie."}, status: :unauthorized
+    end
+  end
 end
