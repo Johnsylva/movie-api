@@ -1,7 +1,10 @@
 class ActorsController < ApplicationController
+  before_action :authenticate_user, except: [:index]
+
   def index
     @actors = Actor.all
     render template: "actors/index"
+    pp current_user
   end
 
   def show
